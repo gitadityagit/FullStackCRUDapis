@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,12 +12,9 @@
 </head>
 <body>
 	<div class="text-center jumbotron">
-		<h3>id : ${{ emp.id}}</h3>
-		<h3>name : ${{ emp.name}}</h3>
-
-		<a href="http://localhost:8082"><input class="btn btn-primary"
-			type="button" value="back"></a>
+	<h2> Record deleted of id ${{id}}</h2>
+	<a href="http://localhost:8082/"><input type="button" class="btn btn-primary" value="back"></a>
 	</div>
-
+	
 </body>
 </html>

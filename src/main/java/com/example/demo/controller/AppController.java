@@ -19,6 +19,7 @@ public class AppController {
 	@RequestMapping("/")
 	public ModelAndView home() {
 		ModelAndView mv=new ModelAndView("form.jsp");
+		
 		return mv;
 	}
 	
@@ -42,6 +43,12 @@ public class AppController {
 	public ModelAndView getRecord(int id) {
 		ModelAndView mv=new ModelAndView("record.jsp");
 		Employee emp=repo.findById(id).orElse(null);
+		
+		if(emp==null) {
+			ModelAndView mv1=new ModelAndView("blank.jsp");
+			mv1.addObject("id", id);
+			return mv1;
+		}
 		mv.addObject("emp", emp);
 		return mv;
 	}
@@ -49,6 +56,13 @@ public class AppController {
 	//update record
 	@RequestMapping("/updateRecord")
 	public ModelAndView updataRecord(Employee emp) {
+		System.out.println(emp.getId()+" "+emp.getName());
+		if(!repo.existsById(emp.getId() ) ) {
+			ModelAndView mv1=new ModelAndView("blank.jsp");
+			mv1.addObject("id", emp.getId());
+			return mv1;
+		}
+		
 		ModelAndView mv=new ModelAndView("form.jsp");
 		repo.save(emp);
 		return mv;
@@ -57,7 +71,13 @@ public class AppController {
 	//delete
 	@RequestMapping("/deleteRecord")
 	public ModelAndView deleteRecord(int id) {
-		ModelAndView mv=new ModelAndView("form.jsp");
+		ModelAndView mv=new ModelAndView("delete.jsp");
+		if(repo.count()==0) {
+			ModelAndView mv1=new ModelAndView("blank.jsp");
+			mv1.addObject("id", id);
+			return mv1;
+		}
+		mv.addObject("id",id);
 		repo.deleteById(id);
 		return mv;
 	}
